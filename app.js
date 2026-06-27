@@ -6,9 +6,9 @@
    ======================================================================= */
 const CONFIG = {
   company: "Nezo Bt.",
-  email: "juhaszakos@nezobt.hu ",
-  telDisplay: "+36 30 309 1116",
-  tel: "+36303091116" // szóköz nélkül, a tárcsázáshoz
+  email: "rendeles@nezo.hu",
+  telDisplay: "+36 1 234 5678",
+  tel: "+3612345678" // szóköz nélkül, a tárcsázáshoz
 };
 /* ===================================================================== */
 
@@ -32,7 +32,7 @@ const FALLBACK_PRODUCTS = [
 ];
 
 let ALL = [];
-const state = { search:"", kollekcio:"", szin:"", anyag:"", mintazat:"", sort:"default" };
+const state = { search:"", szin:"", sort:"default" };
 
 const $ = (s) => document.querySelector(s);
 const grid = $("#grid");
@@ -78,11 +78,7 @@ function apply(){
   let list = ALL.filter(p=>{
     const q = state.search.trim().toLowerCase();
     const hitQ = !q || (p.nev+" "+p.cikkszam).toLowerCase().includes(q);
-    return hitQ
-      && (!state.kollekcio || p.kollekcio===state.kollekcio)
-      && (!state.szin || p.szin===state.szin)
-      && (!state.anyag || p.anyag===state.anyag)
-      && (!state.mintazat || p.mintazat===state.mintazat);
+    return hitQ && (!state.szin || p.szin===state.szin);
   });
   const priceVal = p => (p.ar===""||p.ar==null) ? Infinity : Number(p.ar);
   if(state.sort==="price-asc") list.sort((a,b)=>priceVal(a)-priceVal(b));
@@ -94,7 +90,7 @@ function apply(){
   c.textContent = list.length === ALL.length
     ? `${ALL.length} termék`
     : `${list.length} / ${ALL.length} termék`;
-  const anyFilter = state.search||state.kollekcio||state.szin||state.anyag||state.mintazat;
+  const anyFilter = state.search||state.szin;
   $("#reset").hidden = !anyFilter;
 }
 
@@ -206,14 +202,11 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !modal.hidden) 
 /* ---------- Események ---------- */
 function bind(){
   $("#search").addEventListener("input", e=>{ state.search=e.target.value; apply(); });
-  $("#f-kollekcio").addEventListener("change", e=>{ state.kollekcio=e.target.value; apply(); });
   $("#f-szin").addEventListener("change", e=>{ state.szin=e.target.value; apply(); });
-  $("#f-anyag").addEventListener("change", e=>{ state.anyag=e.target.value; apply(); });
-  $("#f-mintazat").addEventListener("change", e=>{ state.mintazat=e.target.value; apply(); });
   $("#sort").addEventListener("change", e=>{ state.sort=e.target.value; apply(); });
   $("#reset").addEventListener("click", ()=>{
-    Object.assign(state,{search:"",kollekcio:"",szin:"",anyag:"",mintazat:""});
-    $("#search").value=""; ["#f-kollekcio","#f-szin","#f-anyag","#f-mintazat"].forEach(s=>$(s).value="");
+    Object.assign(state,{search:"",szin:""});
+    $("#search").value=""; $("#f-szin").value="";
     apply();
   });
 }
@@ -230,10 +223,7 @@ async function init(){
     ALL = FALLBACK_PRODUCTS;
   }
   if(!Array.isArray(ALL)) ALL = [];
-  fillSelect("#f-kollekcio","kollekcio");
   fillSelect("#f-szin","szin");
-  fillSelect("#f-anyag","anyag");
-  fillSelect("#f-mintazat","mintazat");
   bind();
   apply();
 }
