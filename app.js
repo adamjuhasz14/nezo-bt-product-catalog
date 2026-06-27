@@ -6,9 +6,9 @@
    ======================================================================= */
 const CONFIG = {
   company: "Nezo Bt.",
-  email: "rendeles@nezo.hu",
-  telDisplay: "+36 1 234 5678",
-  tel: "+3612345678" // szóköz nélkül, a tárcsázáshoz
+  email: "juhaszakos@nezobt.hu",
+  telDisplay: "+36 30 309 1116",
+  tel: "+36303091116 // szóköz nélkül, a tárcsázáshoz
 };
 /* ===================================================================== */
 
