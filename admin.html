@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nezo – termékfeltöltő segéd</title>
+<style>
+  :root{--ink:#20221C;--soft:#6B6C62;--line:#E0DED4;--paper:#F2F1EC;--surface:#fff;--accent:#34564A;--accent-soft:#E7EDE9;--danger:#A33636;--radius:9px;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55;}
+  .wrap{max-width:1060px;margin:0 auto;padding:24px 20px 80px;}
+  header h1{font-size:1.4rem;margin:0 0 4px;}
+  header p{color:var(--soft);margin:0 0 22px;font-size:.92rem;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;}
+  @media(max-width:820px){.grid{grid-template-columns:1fr;}}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;}
+  .panel h2{font-size:1rem;margin:0 0 14px;}
+  label{display:block;font-size:.8rem;color:var(--soft);margin:0 0 4px;font-weight:500;}
+  input,select,textarea{width:100%;font:inherit;font-size:.9rem;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent);}
+  textarea{min-height:64px;resize:vertical;}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+  .field{margin-bottom:12px;}
+  .hint{font-size:.74rem;color:var(--soft);margin:4px 0 0;}
+  button{font:inherit;cursor:pointer;border-radius:7px;border:1px solid transparent;padding:9px 14px;font-size:.9rem;font-weight:500;}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-ghost{background:#fff;border-color:var(--line);color:var(--ink);}
+  .btn-ghost:hover{background:var(--paper);}
+  .btn-small{padding:5px 9px;font-size:.78rem;}
+  .btn-danger{background:#fff;border-color:#E3C4C4;color:var(--danger);}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .count{font-size:.85rem;color:var(--soft);margin-left:auto;align-self:center;}
+  .item{display:flex;gap:12px;padding:12px;border:1px solid var(--line);border-radius:8px;margin-bottom:10px;background:#fff;}
+  .item img{width:58px;height:72px;object-fit:cover;border-radius:5px;border:1px solid var(--line);background:var(--paper);flex:0 0 auto;}
+  .item-main{flex:1;min-width:0;}
+  .item-main strong{display:block;font-size:.95rem;}
+  .item-main .meta{font-size:.78rem;color:var(--soft);}
+  .item-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .dl{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;background:var(--accent-soft);color:var(--accent);border:1px solid #cfe0d8;border-radius:6px;padding:4px 8px;text-decoration:none;}
+  .empty{color:var(--soft);font-size:.88rem;padding:18px 4px;}
+  .note{background:var(--accent-soft);border-radius:8px;padding:14px;font-size:.84rem;margin-top:18px;}
+  .note ol{margin:8px 0 0;padding-left:20px;}
+  .note code{background:#fff;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:.85em;}
+  .warn{color:var(--danger);font-size:.8rem;margin-top:6px;min-height:1em;}
+  .save-bar{position:sticky;bottom:0;background:linear-gradient(transparent,var(--paper) 30%);padding-top:18px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Nezo – termékfeltöltő segéd</h1>
+    <p>Töltsd ki az űrlapot, add hozzá a képeket – a segéd legenerálja a <code>products.json</code>-t és a kész (tömörített) képeket. Ezeket töltöd majd fel a GitHubra. Belépés nem kell, semmi nem kerül a netre.</p>
+  </header>
+
+  <div class="toolbar">
+    <button class="btn-ghost" id="load-json">Meglévő products.json betöltése</button>
+    <input type="file" id="json-file" accept=".json,application/json" hidden />
+    <button class="btn-ghost" id="clear-all">Új, üres lista</button>
+    <span class="count" id="count">0 termék a listában</span>
+  </div>
+
+  <div class="grid">
+    <!-- ŰRLAP -->
+    <div class="panel">
+      <h2 id="form-title">Új termék</h2>
+      <div class="row">
+        <div><label>Cikkszám *</label><input id="cikkszam" placeholder="pl. NZ-1042" /></div>
+        <div><label>Megnevezés *</label><input id="nev" placeholder="pl. Lenvászon csíkos" /></div>
+      </div>
+      <div class="row">
+        <div><label>Kollekció</label><input id="kollekcio" placeholder="pl. Naturel" list="dl-kollekcio" /></div>
+        <div><label>Szín</label><input id="szin" placeholder="pl. Bézs" list="dl-szin" /></div>
+      </div>
+      <div class="row">
+        <div><label>Anyag</label><input id="anyag" placeholder="pl. Vlies" list="dl-anyag" /></div>
+        <div><label>Mintázat</label><input id="mintazat" placeholder="pl. Csíkos" list="dl-mintazat" /></div>
+      </div>
+      <div class="row">
+        <div><label>Méret</label><input id="meret" placeholder="pl. 0,53 × 10,05 m" /></div>
+        <div><label>Elérhetőség</label>
+          <select id="elerhetoseg">
+            <option>Raktáron</option>
+            <option>Rendelésre</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div><label>Ár (csak szám, Ft)</label><input id="ar" type="number" min="0" step="100" placeholder="pl. 8900" /></div>
+        <div><label>Ár egysége</label><input id="arEgyseg" value="Ft / tekercs" /></div>
+      </div>
+      <div class="field">
+        <label>Leírás</label>
+        <textarea id="leiras" placeholder="Rövid termékleírás…"></textarea>
+      </div>
+      <div class="field">
+        <label>Kép(ek)</label>
+        <input type="file" id="images" accept="image/*" multiple />
+        <p class="hint">Több kép is választható. A segéd automatikusan kicsinyíti és tömöríti őket (max. 1600 px, JPG). Szerkesztésnél üresen hagyva a meglévő képek megmaradnak.</p>
+      </div>
+      <div class="warn" id="warn"></div>
+      <div style="display:flex;gap:10px;margin-top:6px;">
+        <button class="btn-primary" id="add">Hozzáadás a listához</button>
+        <button class="btn-ghost" id="cancel-edit" hidden>Mégse</button>
+      </div>
+    </div>
+
+    <!-- LISTA -->
+    <div class="panel">
+      <h2>Termékek a listában</h2>
+      <div id="list"><p class="empty">Még nincs termék. Töltsd ki az űrlapot, vagy tölts be egy meglévő products.json-t.</p></div>
+
+      <div class="save-bar">
+        <button class="btn-primary" id="export" style="width:100%;">⬇ products.json letöltése</button>
+      </div>
+
+      <div class="note">
+        <strong>Feltöltés a GitHubra (3 lépés):</strong>
+        <ol>
+          <li>A zölddel jelölt <em>kép-letöltő</em> gombokkal mentsd le az új képeket → töltsd fel őket az <code>images/</code> mappába.</li>
+          <li>Töltsd le a <code>products.json</code>-t → cseréld le vele a <code>data/products.json</code> fájlt.</li>
+          <li>A Cloudflare pár perc múlva magától frissíti az oldalt.</li>
+        </ol>
+        <p style="margin:8px 0 0;color:var(--danger);">Bezárás előtt mindig töltsd le a products.json-t és az új képeket – a segéd nem tárol semmit!</p>
+      </div>
+    </div>
+  </div>
+
+  <datalist id="dl-kollekcio"></datalist>
+  <datalist id="dl-szin"></datalist>
+  <datalist id="dl-anyag"></datalist>
+  <datalist id="dl-mintazat"></datalist>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+let products = [];
+let editIndex = -1;
+let editKeepImages = [];          // szerkesztéskor megőrzött képnevek
+const BLOBS = new Map();          // filename -> objectURL (a frissen generált képek letöltéséhez)
+
+function slug(s){
+  return (s||"").toString().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+}
+function loadImage(file){
+  return new Promise((res,rej)=>{
+    const url=URL.createObjectURL(file); const img=new Image();
+    img.onload=()=>{res(img);URL.revokeObjectURL(url);};
+    img.onerror=rej; img.src=url;
+  });
+}
+async function compress(file, maxDim=1600, quality=0.82){
+  const img=await loadImage(file);
+  let w=img.naturalWidth, h=img.naturalHeight;
+  if(Math.max(w,h)>maxDim){ const r=maxDim/Math.max(w,h); w=Math.round(w*r); h=Math.round(h*r); }
+  const c=document.createElement("canvas"); c.width=w; c.height=h;
+  c.getContext("2d").drawImage(img,0,0,w,h);
+  return await new Promise(r=>c.toBlob(r,"image/jpeg",quality));
+}
+
+async function handleAdd(){
+  const warn=$("#warn"); warn.textContent="";
+  const cikkszam=$("#cikkszam").value.trim();
+  const nev=$("#nev").value.trim();
+  if(!cikkszam || !nev){ warn.textContent="A cikkszám és a megnevezés kötelező."; return; }
+  // duplikátum-ellenőrzés (kivéve ha épp ezt szerkesztjük)
+  const dup = products.findIndex((p,i)=>p.cikkszam.toLowerCase()===cikkszam.toLowerCase() && i!==editIndex);
+  if(dup>=0){ warn.textContent="Ezzel a cikkszámmal már van termék a listában."; return; }
+
+  $("#add").disabled=true; $("#add").textContent="Feldolgozás…";
+  try{
+    const files=[...$("#images").files];
+    let images;
+    if(files.length){
+      const base=slug(cikkszam)||("termek-"+Date.now());
+      images=[];
+      for(let i=0;i<files.length;i++){
+        const fname=`${base}-${i+1}.jpg`;
+        const blob=await compress(files[i]);
+        if(BLOBS.has(fname)) URL.revokeObjectURL(BLOBS.get(fname));
+        BLOBS.set(fname, URL.createObjectURL(blob));
+        images.push(fname);
+      }
+    } else {
+      images = editKeepImages.slice(); // szerkesztés új kép nélkül
+    }
+
+    const arRaw=$("#ar").value.trim();
+    const product={
+      id: slug(cikkszam)||("termek-"+Date.now()),
+      cikkszam, nev,
+      kollekcio:$("#kollekcio").value.trim(),
+      szin:$("#szin").value.trim(),
+      meret:$("#meret").value.trim(),
+      anyag:$("#anyag").value.trim(),
+      mintazat:$("#mintazat").value.trim(),
+      ar: arRaw==="" ? "" : Number(arRaw),
+      arEgyseg:$("#arEgyseg").value.trim(),
+      elerhetoseg:$("#elerhetoseg").value,
+      leiras:$("#leiras").value.trim(),
+      images
+    };
+    if(editIndex>=0){ products[editIndex]=product; } else { products.push(product); }
+    resetForm(); renderList();
+  } finally {
+    $("#add").disabled=false;
+  }
+}
+
+function resetForm(){
+  ["cikkszam","nev","kollekcio","szin","meret","anyag","mintazat","ar","leiras"].forEach(id=>$("#"+id).value="");
+  $("#arEgyseg").value="Ft / tekercs"; $("#elerhetoseg").value="Raktáron"; $("#images").value="";
+  editIndex=-1; editKeepImages=[];
+  $("#form-title").textContent="Új termék"; $("#add").textContent="Hozzáadás a listához";
+  $("#cancel-edit").hidden=true; $("#warn").textContent="";
+}
+
+function startEdit(i){
+  const p=products[i];
+  ["cikkszam","nev","kollekcio","szin","meret","anyag","mintazat","leiras"].forEach(k=>$("#"+k).value=p[k]||"");
+  $("#ar").value=(p.ar===""||p.ar==null)?"":p.ar;
+  $("#arEgyseg").value=p.arEgyseg||"Ft / tekercs";
+  $("#elerhetoseg").value=p.elerhetoseg||"Raktáron";
+  editIndex=i; editKeepImages=(p.images||[]).slice();
+  $("#form-title").textContent="Termék szerkesztése"; $("#add").textContent="Módosítás mentése";
+  $("#cancel-edit").hidden=false;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function removeItem(i){
+  if(confirm("Biztosan törlöd ezt a terméket a listából?")){ products.splice(i,1); renderList(); if(editIndex===i) resetForm(); }
+}
+
+function renderList(){
+  const list=$("#list");
+  $("#count").textContent = `${products.length} termék a listában`;
+  if(!products.length){ list.innerHTML='<p class="empty">Még nincs termék. Töltsd ki az űrlapot, vagy tölts be egy meglévő products.json-t.</p>'; refreshDatalists(); return; }
+  list.innerHTML="";
+  products.forEach((p,i)=>{
+    const firstImg=p.images && p.images[0];
+    const thumb = firstImg && BLOBS.has(firstImg) ? BLOBS.get(firstImg) : "";
+    const dlBtns=(p.images||[]).filter(f=>BLOBS.has(f))
+      .map(f=>`<a class="dl" href="${BLOBS.get(f)}" download="${f}">⬇ ${f}</a>`).join("");
+    const el=document.createElement("div"); el.className="item";
+    el.innerHTML=`
+      ${thumb?`<img src="${thumb}" alt="">`:`<div class="item" style="width:58px;height:72px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--soft);font-size:.66rem;padding:0;margin:0;">kép a&nbsp;repón</div>`}
+      <div class="item-main">
+        <strong>${esc(p.nev)}</strong>
+        <span class="meta">${esc(p.cikkszam)}${p.kollekcio?" · "+esc(p.kollekcio):""}${(p.ar!==""&&p.ar!=null)?" · "+Number(p.ar).toLocaleString("hu-HU")+" Ft":""}</span>
+        <div class="item-actions">
+          <button class="btn-ghost btn-small" onclick="startEdit(${i})">Szerkesztés</button>
+          <button class="btn-danger btn-small" onclick="removeItem(${i})">Törlés</button>
+          ${dlBtns}
+        </div>
+      </div>`;
+    list.appendChild(el);
+  });
+  refreshDatalists();
+}
+
+function refreshDatalists(){
+  [["kollekcio","dl-kollekcio"],["szin","dl-szin"],["anyag","dl-anyag"],["mintazat","dl-mintazat"]].forEach(([k,id])=>{
+    const vals=[...new Set(products.map(p=>p[k]).filter(Boolean))].sort();
+    $("#"+id).innerHTML=vals.map(v=>`<option value="${esc(v)}">`).join("");
+  });
+}
+
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+function exportJson(){
+  if(!products.length){ alert("A lista üres."); return; }
+  const data=JSON.stringify(products,null,2);
+  const blob=new Blob([data],{type:"application/json"});
+  const url=URL.createObjectURL(blob); const a=document.createElement("a");
+  a.href=url; a.download="products.json"; a.click(); URL.revokeObjectURL(url);
+}
+
+function loadJsonFile(file){
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const arr=JSON.parse(reader.result);
+      if(!Array.isArray(arr)) throw new Error("nem tömb");
+      products=arr; renderList();
+      alert(`Betöltve: ${arr.length} termék. Az új képeket továbbra is le kell töltened, ha újat adsz hozzá.`);
+    }catch(e){ alert("Nem sikerült beolvasni a JSON-t: "+e.message); }
+  };
+  reader.readAsText(file);
+}
+
+// események
+$("#add").addEventListener("click", handleAdd);
+$("#cancel-edit").addEventListener("click", resetForm);
+$("#export").addEventListener("click", exportJson);
+$("#clear-all").addEventListener("click", ()=>{ if(confirm("Üres listával kezdesz? A jelenlegi (nem letöltött) lista elveszik.")){ products=[]; resetForm(); renderList(); }});
+$("#load-json").addEventListener("click", ()=>$("#json-file").click());
+$("#json-file").addEventListener("change", e=>{ if(e.target.files[0]) loadJsonFile(e.target.files[0]); e.target.value=""; });
+window.addEventListener("beforeunload", e=>{ if(products.length){ e.preventDefault(); e.returnValue=""; }});
+
+renderList();
+</script>
+</body>
+</html>

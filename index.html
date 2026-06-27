@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Csak linkkel elérhető: a keresők ne listázzák -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Nezo – Tapéta nagykereskedés</title>
+  <meta name="description" content="Nezo Bt. tapéta nagykereskedelmi termékkatalógus." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="./">
+        <span class="brand-mark">Nezo</span>
+        <span class="brand-tag">Tapéta nagykereskedés</span>
+      </a>
+      <div class="header-contact">
+        <span class="header-contact-label">Rendelés &amp; nagyker árak</span>
+        <a href="mailto:rendeles@nezo.hu" data-contact="email">rendeles@nezo.hu</a>
+        <a href="tel:+3612345678" data-contact="tel">+36 1 234 5678</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="intro">
+    <div class="wrap">
+      <p class="eyebrow">Termékkatalógus</p>
+      <h1>Tapéták viszonteladóknak és kivitelezőknek</h1>
+      <p class="intro-lead">Böngéssz a kollekciók között, szűrj szín, anyag és mintázat szerint. Rendeléshez és aktuális nagykereskedelmi árakhoz vedd fel velünk a kapcsolatot.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="toolbar" role="search">
+      <div class="search-field">
+        <input id="search" type="search" placeholder="Keresés név vagy cikkszám szerint…" aria-label="Keresés név vagy cikkszám szerint" autocomplete="off" />
+      </div>
+      <select id="f-kollekcio" aria-label="Kollekció szűrő"><option value="">Minden kollekció</option></select>
+      <select id="f-szin" aria-label="Szín szűrő"><option value="">Minden szín</option></select>
+      <select id="f-anyag" aria-label="Anyag szűrő"><option value="">Minden anyag</option></select>
+      <select id="f-mintazat" aria-label="Mintázat szűrő"><option value="">Minden mintázat</option></select>
+      <select id="sort" aria-label="Rendezés">
+        <option value="default">Rendezés: alapértelmezett</option>
+        <option value="price-asc">Ár szerint növekvő</option>
+        <option value="price-desc">Ár szerint csökkenő</option>
+        <option value="name-asc">Név szerint (A–Z)</option>
+      </select>
+    </div>
+
+    <div class="toolbar-meta">
+      <span id="count" class="count"></span>
+      <button id="reset" class="link-btn" type="button" hidden>Szűrők törlése</button>
+    </div>
+
+    <main id="grid" class="grid" aria-live="polite">
+      <p class="state">Termékek betöltése…</p>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark">Nezo</span>
+        <p class="footer-note">Tapéta nagykereskedés viszonteladók, lakberendezők és kivitelezők részére.</p>
+      </div>
+      <div class="footer-contact">
+        <p class="footer-label">Kapcsolat &amp; rendelés</p>
+        <p>Nezo Bt.</p>
+        <p><a href="mailto:rendeles@nezo.hu" data-contact="email">rendeles@nezo.hu</a></p>
+        <p><a href="tel:+3612345678" data-contact="tel">+36 1 234 5678</a></p>
+        <p class="footer-small">Online rendelés jelenleg nincs – kérjük, e-mailen vagy telefonon keressen minket.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Termék modal -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" data-close aria-label="Bezárás">×</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
