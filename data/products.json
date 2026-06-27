@@ -103,5 +103,23 @@
       "707-20-2.jpg",
       "707-20-3.jpg"
     ]
+  },
+  {
+    "id": "507-06",
+    "cikkszam": "507-06",
+    "nev": "Hullámos Bordó",
+    "kollekcio": "",
+    "szin": "06 Bordó",
+    "meret": "",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / tekercs",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "507-06-1.jpg",
+      "507-06-2.jpg"
+    ]
   }
 ]
