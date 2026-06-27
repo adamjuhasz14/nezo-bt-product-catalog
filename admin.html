@@ -57,6 +57,8 @@
   .thumb .rm{color:var(--danger);border-color:#E3C4C4;}
   .json-area{margin-top:14px;}
   .json-area textarea{width:100%;min-height:220px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.76rem;white-space:pre;background:#fff;}
+  .paste-box{margin:-4px 0 16px;}
+  .paste-box textarea{width:100%;min-height:150px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.76rem;white-space:pre;background:#fff;}
 </style>
 </head>
 <body>
@@ -67,10 +69,19 @@
   </header>
 
   <div class="toolbar">
-    <button class="btn-ghost" id="load-json">Meglévő products.json betöltése</button>
+    <button class="btn-ghost" id="load-json">products.json betöltése (fájlból)</button>
     <input type="file" id="json-file" accept=".json,application/json" hidden />
+    <button class="btn-ghost" id="paste-json">JSON beillesztése</button>
     <button class="btn-ghost" id="clear-all">Új, üres lista</button>
     <span class="count" id="count">0 termék a listában</span>
+  </div>
+  <div class="paste-box" id="paste-area" hidden>
+    <textarea id="paste-text" placeholder="Illeszd be ide a products.json teljes tartalmát (a [ ... ] tömböt), majd kattints a Betöltés gombra…"></textarea>
+    <div style="display:flex;gap:8px;margin-top:6px;align-items:center;">
+      <button class="btn-primary btn-small" id="paste-load">Betöltés</button>
+      <button class="btn-ghost btn-small" id="paste-cancel">Mégse</button>
+    </div>
+    <p class="hint">A GitHubon nyisd meg a <code>data/products.json</code>-t → jelöld ki az egészet (Ctrl+A) → másold (Ctrl+C) → illeszd be ide (Ctrl+V).</p>
   </div>
 
   <div class="grid">
@@ -339,14 +350,18 @@ function exportJson(){
   a.href=url; a.download="products.json"; a.click(); URL.revokeObjectURL(url);
 }
 
+function loadFromText(text){
+  const arr=JSON.parse(text);
+  if(!Array.isArray(arr)) throw new Error("a tartalomnak [ ... ] tömbnek kell lennie");
+  products=arr; renderList();
+  return arr.length;
+}
 function loadJsonFile(file){
   const reader=new FileReader();
   reader.onload=()=>{
     try{
-      const arr=JSON.parse(reader.result);
-      if(!Array.isArray(arr)) throw new Error("nem tömb");
-      products=arr; renderList();
-      alert(`Betöltve: ${arr.length} termék. A „Szerkesztés / sorrend” gombbal bármelyik termék képeinek sorrendjét utólag is állíthatod.`);
+      const n=loadFromText(reader.result);
+      alert(`Betöltve: ${n} termék. A „Szerkesztés / sorrend” gombbal bármelyik termék képeinek sorrendjét utólag is állíthatod.`);
     }catch(e){ alert("Nem sikerült beolvasni a JSON-t: "+e.message); }
   };
   reader.readAsText(file);
@@ -365,6 +380,20 @@ $("#export").addEventListener("click", exportJson);
 $("#clear-all").addEventListener("click", ()=>{ if(confirm("Üres listával kezdesz? A jelenlegi (nem mentett) lista elveszik.")){ products=[]; resetForm(); renderList(); }});
 $("#load-json").addEventListener("click", ()=>$("#json-file").click());
 $("#json-file").addEventListener("change", e=>{ if(e.target.files[0]) loadJsonFile(e.target.files[0]); e.target.value=""; });
+$("#paste-json").addEventListener("click", ()=>{
+  const box=$("#paste-area"); box.hidden=!box.hidden;
+  if(!box.hidden){ $("#paste-text").focus(); box.scrollIntoView({behavior:"smooth",block:"nearest"}); }
+});
+$("#paste-cancel").addEventListener("click", ()=>{ $("#paste-area").hidden=true; $("#paste-text").value=""; });
+$("#paste-load").addEventListener("click", ()=>{
+  const text=$("#paste-text").value.trim();
+  if(!text){ alert("Illeszd be a JSON tartalmát a mezőbe."); return; }
+  try{
+    const n=loadFromText(text);
+    $("#paste-area").hidden=true; $("#paste-text").value="";
+    alert(`Betöltve: ${n} termék.`);
+  }catch(e){ alert("Nem sikerült beolvasni a beillesztett JSON-t: "+e.message); }
+});
 window.addEventListener("beforeunload", e=>{ if(products.length){ e.preventDefault(); e.returnValue=""; }});
 
 renderList();
