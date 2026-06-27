@@ -8,7 +8,7 @@ const CONFIG = {
   company: "Nezo Bt.",
   email: "juhaszakos@nezobt.hu",
   telDisplay: "+36 30 309 1116",
-  tel: "+36303091116 // szóköz nélkül, a tárcsázáshoz
+  tel: "+36303091116" // szóköz nélkül, a tárcsázáshoz
 };
 /* ===================================================================== */
 
