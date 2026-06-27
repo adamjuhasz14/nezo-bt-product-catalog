@@ -157,7 +157,7 @@ function openModal(p){
 
   modalBody.innerHTML = `
     <div class="modal-gallery">
-      <img class="main" id="modal-main" src="${imgSrc(imgs[0])}" alt="${escapeHtml(p.nev)}" />
+      <div class="gallery-main"><img class="main" id="modal-main" src="${imgSrc(imgs[0])}" alt="${escapeHtml(p.nev)}" /></div>
       ${thumbs}
     </div>
     <div class="modal-detail">
