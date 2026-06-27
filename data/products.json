@@ -49,5 +49,39 @@
     "images": [
       "500-20-1.jpg"
     ]
+  },
+  {
+    "id": "707-18",
+    "cikkszam": "707-18",
+    "nev": "Virágos Arany",
+    "kollekcio": "",
+    "szin": "18",
+    "meret": "7cm",
+    "anyag": "",
+    "mintazat": "",
+    "ar": 1050,
+    "arEgyseg": "Ft / tekercs",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "707-18-1.jpg"
+    ]
+  },
+  {
+    "id": "508-13",
+    "cikkszam": "508-13",
+    "nev": "Kék Bordűr",
+    "kollekcio": "",
+    "szin": "13",
+    "meret": "",
+    "anyag": "",
+    "mintazat": "",
+    "ar": 990,
+    "arEgyseg": "Ft / tekercs",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "508-13-1.jpg"
+    ]
   }
 ]
