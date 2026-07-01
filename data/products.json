@@ -2,124 +2,1361 @@
   {
     "id": "303-20",
     "cikkszam": "303-20",
-    "nev": "Bézs Hullám",
-    "kollekcio": "",
+    "nev": "303-20",
+    "kollekcio": "Bordűr",
     "szin": "Bézs",
-    "meret": "",
+    "meret": "3 cm széles",
     "anyag": "",
     "mintazat": "",
-    "ar": 790,
-    "arEgyseg": "Ft / tekercs",
+    "ar": "",
+    "arEgyseg": "Ft / db",
     "elerhetoseg": "Raktáron",
     "leiras": "",
     "images": [
-      "303-20-1.jpg"
+      "303-20.jpg"
+    ]
+  },
+  {
+    "id": "303-18",
+    "cikkszam": "303-18",
+    "nev": "303-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "303-18.jpg"
+    ]
+  },
+  {
+    "id": "303-13",
+    "cikkszam": "303-13",
+    "nev": "303-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "303-13.jpg"
+    ]
+  },
+  {
+    "id": "303-21",
+    "cikkszam": "303-21",
+    "nev": "303-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "303-21.jpg"
+    ]
+  },
+  {
+    "id": "303-06",
+    "cikkszam": "303-06",
+    "nev": "303-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "303-06.jpg"
+    ]
+  },
+  {
+    "id": "305-20",
+    "cikkszam": "305-20",
+    "nev": "305-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "305-20.jpg"
+    ]
+  },
+  {
+    "id": "305-18",
+    "cikkszam": "305-18",
+    "nev": "305-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "305-18.jpg"
+    ]
+  },
+  {
+    "id": "305-13",
+    "cikkszam": "305-13",
+    "nev": "305-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "305-13.jpg"
+    ]
+  },
+  {
+    "id": "305-21",
+    "cikkszam": "305-21",
+    "nev": "305-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "305-21.jpg"
+    ]
+  },
+  {
+    "id": "305-06",
+    "cikkszam": "305-06",
+    "nev": "305-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "305-06.jpg"
+    ]
+  },
+  {
+    "id": "306-20",
+    "cikkszam": "306-20",
+    "nev": "306-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "306-20.jpg"
+    ]
+  },
+  {
+    "id": "306-18",
+    "cikkszam": "306-18",
+    "nev": "306-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "306-18.jpg"
+    ]
+  },
+  {
+    "id": "306-13",
+    "cikkszam": "306-13",
+    "nev": "306-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "306-13.jpg"
+    ]
+  },
+  {
+    "id": "306-21",
+    "cikkszam": "306-21",
+    "nev": "306-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "306-21.jpg"
+    ]
+  },
+  {
+    "id": "306-06",
+    "cikkszam": "306-06",
+    "nev": "306-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "306-06.jpg"
     ]
   },
   {
     "id": "307-20",
     "cikkszam": "307-20",
-    "nev": "Virágos Bézs",
-    "kollekcio": "",
-    "szin": "20",
-    "meret": "",
+    "nev": "307-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "3 cm széles",
     "anyag": "",
     "mintazat": "",
-    "ar": 790,
-    "arEgyseg": "Ft / tekercs",
+    "ar": "",
+    "arEgyseg": "Ft / db",
     "elerhetoseg": "Raktáron",
     "leiras": "",
     "images": [
-      "307-20-1.jpg"
+      "307-20.jpg"
+    ]
+  },
+  {
+    "id": "307-18",
+    "cikkszam": "307-18",
+    "nev": "307-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "307-18.jpg"
+    ]
+  },
+  {
+    "id": "307-13",
+    "cikkszam": "307-13",
+    "nev": "307-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "307-13.jpg"
+    ]
+  },
+  {
+    "id": "307-21",
+    "cikkszam": "307-21",
+    "nev": "307-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "307-21.jpg"
+    ]
+  },
+  {
+    "id": "307-06",
+    "cikkszam": "307-06",
+    "nev": "307-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "3 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "307-06.jpg"
     ]
   },
   {
     "id": "500-20",
     "cikkszam": "500-20",
-    "nev": "Bézs Pöttyös",
-    "kollekcio": "",
-    "szin": "20",
-    "meret": "",
-    "anyag": "",
-    "mintazat": "",
-    "ar": 750,
-    "arEgyseg": "Ft / tekercs",
-    "elerhetoseg": "Raktáron",
-    "leiras": "",
-    "images": [
-      "500-20-1.jpg"
-    ]
-  },
-  {
-    "id": "707-18",
-    "cikkszam": "707-18",
-    "nev": "Virágos Arany",
-    "kollekcio": "",
-    "szin": "18",
-    "meret": "7cm",
-    "anyag": "",
-    "mintazat": "",
-    "ar": 1050,
-    "arEgyseg": "Ft / tekercs",
-    "elerhetoseg": "Raktáron",
-    "leiras": "",
-    "images": [
-      "707-18-1.jpg"
-    ]
-  },
-  {
-    "id": "508-13",
-    "cikkszam": "508-13",
-    "nev": "Kék Bordűr",
-    "kollekcio": "",
-    "szin": "13",
-    "meret": "",
-    "anyag": "",
-    "mintazat": "",
-    "ar": 990,
-    "arEgyseg": "Ft / tekercs",
-    "elerhetoseg": "Raktáron",
-    "leiras": "",
-    "images": [
-      "508-13-2.jpg",
-      "508-13-1.jpg"
-    ]
-  },
-  {
-    "id": "707-20",
-    "cikkszam": "707-20",
-    "nev": "Bézs Virágos Bordűr 7cm",
-    "kollekcio": "",
-    "szin": "20-Bézs",
-    "meret": "",
+    "nev": "500-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "5 cm széles",
     "anyag": "",
     "mintazat": "",
     "ar": "",
-    "arEgyseg": "Ft / tekercs",
+    "arEgyseg": "Ft / db",
     "elerhetoseg": "Raktáron",
     "leiras": "",
     "images": [
-      "707-20-1.jpg",
-      "707-20-2.jpg",
-      "707-20-3.jpg"
+      "500-20.jpg"
+    ]
+  },
+  {
+    "id": "500-18",
+    "cikkszam": "500-18",
+    "nev": "500-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "500-18.jpg"
+    ]
+  },
+  {
+    "id": "500-13",
+    "cikkszam": "500-13",
+    "nev": "500-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "500-13.jpg"
+    ]
+  },
+  {
+    "id": "500-21",
+    "cikkszam": "500-21",
+    "nev": "500-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "500-21.jpg"
+    ]
+  },
+  {
+    "id": "500-06",
+    "cikkszam": "500-06",
+    "nev": "500-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "500-06.jpg"
+    ]
+  },
+  {
+    "id": "505-20",
+    "cikkszam": "505-20",
+    "nev": "505-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "505-20.jpg"
+    ]
+  },
+  {
+    "id": "505-18",
+    "cikkszam": "505-18",
+    "nev": "505-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "505-18.jpg"
+    ]
+  },
+  {
+    "id": "505-13",
+    "cikkszam": "505-13",
+    "nev": "505-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "505-13.jpg"
+    ]
+  },
+  {
+    "id": "505-21",
+    "cikkszam": "505-21",
+    "nev": "505-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "505-21.jpg"
+    ]
+  },
+  {
+    "id": "505-06",
+    "cikkszam": "505-06",
+    "nev": "505-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "505-06.jpg"
+    ]
+  },
+  {
+    "id": "506-20",
+    "cikkszam": "506-20",
+    "nev": "506-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "506-20.jpg"
+    ]
+  },
+  {
+    "id": "506-18",
+    "cikkszam": "506-18",
+    "nev": "506-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "506-18.jpg"
+    ]
+  },
+  {
+    "id": "506-13",
+    "cikkszam": "506-13",
+    "nev": "506-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "506-13.jpg"
+    ]
+  },
+  {
+    "id": "506-21",
+    "cikkszam": "506-21",
+    "nev": "506-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "506-21.jpg"
+    ]
+  },
+  {
+    "id": "506-06",
+    "cikkszam": "506-06",
+    "nev": "506-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "506-06.jpg"
+    ]
+  },
+  {
+    "id": "507-20",
+    "cikkszam": "507-20",
+    "nev": "507-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "507-20.jpg"
+    ]
+  },
+  {
+    "id": "507-18",
+    "cikkszam": "507-18",
+    "nev": "507-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "507-18.jpg"
+    ]
+  },
+  {
+    "id": "507-13",
+    "cikkszam": "507-13",
+    "nev": "507-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "507-13.jpg"
+    ]
+  },
+  {
+    "id": "507-21",
+    "cikkszam": "507-21",
+    "nev": "507-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "507-21.jpg"
     ]
   },
   {
     "id": "507-06",
     "cikkszam": "507-06",
-    "nev": "Hullámos Bordó",
-    "kollekcio": "",
-    "szin": "06 Bordó",
-    "meret": "",
+    "nev": "507-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "5 cm széles",
     "anyag": "",
     "mintazat": "",
     "ar": "",
-    "arEgyseg": "Ft / tekercs",
+    "arEgyseg": "Ft / db",
     "elerhetoseg": "Raktáron",
     "leiras": "",
     "images": [
-      "507-06-1.jpg",
-      "507-06-2.jpg"
+      "507-06.jpg"
+    ]
+  },
+  {
+    "id": "508-20",
+    "cikkszam": "508-20",
+    "nev": "508-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "508-20.jpg"
+    ]
+  },
+  {
+    "id": "508-18",
+    "cikkszam": "508-18",
+    "nev": "508-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "508-18.jpg"
+    ]
+  },
+  {
+    "id": "508-13",
+    "cikkszam": "508-13",
+    "nev": "508-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "508-13.jpg"
+    ]
+  },
+  {
+    "id": "508-21",
+    "cikkszam": "508-21",
+    "nev": "508-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "508-21.jpg"
+    ]
+  },
+  {
+    "id": "508-06",
+    "cikkszam": "508-06",
+    "nev": "508-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "508-06.jpg"
+    ]
+  },
+  {
+    "id": "509-20",
+    "cikkszam": "509-20",
+    "nev": "509-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "509-20.jpg"
+    ]
+  },
+  {
+    "id": "509-18",
+    "cikkszam": "509-18",
+    "nev": "509-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "509-18.jpg"
+    ]
+  },
+  {
+    "id": "509-13",
+    "cikkszam": "509-13",
+    "nev": "509-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "509-13.jpg"
+    ]
+  },
+  {
+    "id": "509-21",
+    "cikkszam": "509-21",
+    "nev": "509-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "509-21.jpg"
+    ]
+  },
+  {
+    "id": "509-06",
+    "cikkszam": "509-06",
+    "nev": "509-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "509-06.jpg"
+    ]
+  },
+  {
+    "id": "510-20",
+    "cikkszam": "510-20",
+    "nev": "510-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "510-20.jpg"
+    ]
+  },
+  {
+    "id": "510-18",
+    "cikkszam": "510-18",
+    "nev": "510-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "510-18.jpg"
+    ]
+  },
+  {
+    "id": "510-13",
+    "cikkszam": "510-13",
+    "nev": "510-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "510-13.jpg"
+    ]
+  },
+  {
+    "id": "510-21",
+    "cikkszam": "510-21",
+    "nev": "510-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "510-21.jpg"
+    ]
+  },
+  {
+    "id": "510-06",
+    "cikkszam": "510-06",
+    "nev": "510-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "510-06.jpg"
+    ]
+  },
+  {
+    "id": "530-20",
+    "cikkszam": "530-20",
+    "nev": "530-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "530-20.jpg"
+    ]
+  },
+  {
+    "id": "530-18",
+    "cikkszam": "530-18",
+    "nev": "530-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "530-18.jpg"
+    ]
+  },
+  {
+    "id": "530-13",
+    "cikkszam": "530-13",
+    "nev": "530-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "530-13.jpg"
+    ]
+  },
+  {
+    "id": "530-21",
+    "cikkszam": "530-21",
+    "nev": "530-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "530-21.jpg"
+    ]
+  },
+  {
+    "id": "530-06",
+    "cikkszam": "530-06",
+    "nev": "530-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "5 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "530-06.jpg"
+    ]
+  },
+  {
+    "id": "703-20",
+    "cikkszam": "703-20",
+    "nev": "703-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "703-20.jpg"
+    ]
+  },
+  {
+    "id": "703-18",
+    "cikkszam": "703-18",
+    "nev": "703-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "703-18.jpg"
+    ]
+  },
+  {
+    "id": "703-13",
+    "cikkszam": "703-13",
+    "nev": "703-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "703-13.jpg"
+    ]
+  },
+  {
+    "id": "703-21",
+    "cikkszam": "703-21",
+    "nev": "703-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "703-21.jpg"
+    ]
+  },
+  {
+    "id": "703-06",
+    "cikkszam": "703-06",
+    "nev": "703-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "703-06.jpg"
+    ]
+  },
+  {
+    "id": "707-20",
+    "cikkszam": "707-20",
+    "nev": "707-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "707-20.jpg"
+    ]
+  },
+  {
+    "id": "707-18",
+    "cikkszam": "707-18",
+    "nev": "707-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "707-18.jpg"
+    ]
+  },
+  {
+    "id": "707-13",
+    "cikkszam": "707-13",
+    "nev": "707-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "707-13.jpg"
+    ]
+  },
+  {
+    "id": "707-21",
+    "cikkszam": "707-21",
+    "nev": "707-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "707-21.jpg"
+    ]
+  },
+  {
+    "id": "707-06",
+    "cikkszam": "707-06",
+    "nev": "707-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "707-06.jpg"
+    ]
+  },
+  {
+    "id": "709-20",
+    "cikkszam": "709-20",
+    "nev": "709-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "709-20.jpg"
+    ]
+  },
+  {
+    "id": "709-18",
+    "cikkszam": "709-18",
+    "nev": "709-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "709-18.jpg"
+    ]
+  },
+  {
+    "id": "709-13",
+    "cikkszam": "709-13",
+    "nev": "709-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "709-13.jpg"
+    ]
+  },
+  {
+    "id": "709-21",
+    "cikkszam": "709-21",
+    "nev": "709-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "709-21.jpg"
+    ]
+  },
+  {
+    "id": "709-06",
+    "cikkszam": "709-06",
+    "nev": "709-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "709-06.jpg"
+    ]
+  },
+  {
+    "id": "710-20",
+    "cikkszam": "710-20",
+    "nev": "710-20",
+    "kollekcio": "Bordűr",
+    "szin": "Bézs",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "710-20.jpg"
+    ]
+  },
+  {
+    "id": "710-18",
+    "cikkszam": "710-18",
+    "nev": "710-18",
+    "kollekcio": "Bordűr",
+    "szin": "Arany",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "710-18.jpg"
+    ]
+  },
+  {
+    "id": "710-13",
+    "cikkszam": "710-13",
+    "nev": "710-13",
+    "kollekcio": "Bordűr",
+    "szin": "Kék",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "710-13.jpg"
+    ]
+  },
+  {
+    "id": "710-21",
+    "cikkszam": "710-21",
+    "nev": "710-21",
+    "kollekcio": "Bordűr",
+    "szin": "Szürke",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "710-21.jpg"
+    ]
+  },
+  {
+    "id": "710-06",
+    "cikkszam": "710-06",
+    "nev": "710-06",
+    "kollekcio": "Bordűr",
+    "szin": "Sötét barna",
+    "meret": "7 cm széles",
+    "anyag": "",
+    "mintazat": "",
+    "ar": "",
+    "arEgyseg": "Ft / db",
+    "elerhetoseg": "Raktáron",
+    "leiras": "",
+    "images": [
+      "710-06.jpg"
     ]
   }
 ]
