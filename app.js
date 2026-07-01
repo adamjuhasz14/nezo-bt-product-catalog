@@ -6,9 +6,9 @@
    ======================================================================= */
 const CONFIG = {
   company: "Nezo Bt.",
-  email: "juhaszakos@nezobt.hu",
-  telDisplay: "+36 30 309 1116",
-  tel: "+36303091116" // szóköz nélkül, a tárcsázáshoz
+  email: "rendeles@nezo.hu",
+  telDisplay: "+36 1 234 5678",
+  tel: "+3612345678" // szóköz nélkül, a tárcsázáshoz
 };
 /* ===================================================================== */
 
@@ -32,6 +32,8 @@ const FALLBACK_PRODUCTS = [
 ];
 
 let ALL = [];
+const imgAvail = {};        // termék id -> betölt-e a képe (van-e valódi kép)
+let imagesChecked = false;
 const state = { search:"", szin:"", sort:"default" };
 
 const $ = (s) => document.querySelector(s);
@@ -75,23 +77,46 @@ function fillSelect(id, key){
 
 /* ---------- Szűrés + rendezés ---------- */
 function apply(){
+  const q = state.search.trim().toLowerCase();
   let list = ALL.filter(p=>{
-    const q = state.search.trim().toLowerCase();
     const hitQ = !q || (p.nev+" "+p.cikkszam).toLowerCase().includes(q);
     return hitQ && (!state.szin || p.szin===state.szin);
   });
   const priceVal = p => (p.ar===""||p.ar==null) ? Infinity : Number(p.ar);
-  if(state.sort==="price-asc") list.sort((a,b)=>priceVal(a)-priceVal(b));
-  else if(state.sort==="price-desc") list.sort((a,b)=>priceVal(b)-priceVal(a));
-  else if(state.sort==="name-asc") list.sort((a,b)=>a.nev.localeCompare(b.nev,"hu"));
+  const cmp = (a,b)=>{
+    if(state.sort==="price-asc") return priceVal(a)-priceVal(b);
+    if(state.sort==="price-desc") return priceVal(b)-priceVal(a);
+    if(state.sort==="name-asc") return a.nev.localeCompare(b.nev,"hu");
+    return 0;
+  };
+  list.sort((a,b)=>{
+    if(imagesChecked){                       // kép nélküli termékek a lista végére
+      const ai = imgAvail[a.id] ? 0 : 1, bi = imgAvail[b.id] ? 0 : 1;
+      if(ai!==bi) return ai-bi;
+    }
+    return cmp(a,b);
+  });
 
   render(list);
-  const c = $("#count");
-  c.textContent = list.length === ALL.length
+  $("#count").textContent = list.length === ALL.length
     ? `${ALL.length} termék`
     : `${list.length} / ${ALL.length} termék`;
-  const anyFilter = state.search||state.szin;
-  $("#reset").hidden = !anyFilter;
+  $("#reset").hidden = !(state.search || state.szin);
+  $("#filter-dot").hidden = !(state.search || state.szin || state.sort!=="default");
+}
+
+/* megnézi, mely termékeknek van valóban betöltődő képe (a hiányzók a végére kerülnek) */
+function checkImages(){
+  const items = ALL.filter(p => p.images && p.images[0]);
+  if(!items.length){ imagesChecked = true; apply(); return; }
+  let remaining = items.length;
+  const done = ()=>{ if(--remaining===0){ imagesChecked = true; apply(); } };
+  items.forEach(p=>{
+    const im = new Image();
+    im.onload = ()=>{ imgAvail[p.id] = true; done(); };
+    im.onerror = ()=>{ imgAvail[p.id] = false; done(); };
+    im.src = imgSrc(p.images[0]);
+  });
 }
 
 /* ---------- Rács kirajzolása ---------- */
@@ -201,6 +226,11 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !modal.hidden) 
 
 /* ---------- Események ---------- */
 function bind(){
+  $("#filter-toggle").addEventListener("click", ()=>{
+    const open = $("#filter-panel").hidden;
+    $("#filter-panel").hidden = !open;
+    $("#filter-toggle").setAttribute("aria-expanded", String(open));
+  });
   $("#search").addEventListener("input", e=>{ state.search=e.target.value; apply(); });
   $("#f-szin").addEventListener("change", e=>{ state.szin=e.target.value; apply(); });
   $("#sort").addEventListener("change", e=>{ state.sort=e.target.value; apply(); });
@@ -226,5 +256,6 @@ async function init(){
   fillSelect("#f-szin","szin");
   bind();
   apply();
+  checkImages();
 }
 init();
