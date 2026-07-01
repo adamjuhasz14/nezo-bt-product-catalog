@@ -126,33 +126,70 @@ function render(list){
     grid.innerHTML = '<p class="state">Nincs a szűrésnek megfelelő termék. Próbálj meg lazítani a szűrőkön.</p>';
     return;
   }
+
   grid.innerHTML = "";
+
   list.forEach(p=>{
+
     const card = document.createElement("div");
     card.className = "card";
     card.setAttribute("role", "button");
     card.tabIndex = 0;
     card.setAttribute("aria-label", p.nev + " megtekintése");
+
     const order = (p.elerhetoseg||"").toLowerCase().includes("rendel");
+
+    // Ha van legalább 2 kép, akkor a második legyen az alapértelmezett.
+    // Ha csak 1 van, akkor az első.
+    const previewImage =
+      p.images?.length > 1
+        ? p.images[1]
+        : p.images?.[0];
+
     card.innerHTML = `
       <div class="card-figure">
         <span class="card-tag">${escapeHtml(p.cikkszam)}</span>
         ${p.elerhetoseg ? `<span class="card-stock ${order?"order":""}">${escapeHtml(p.elerhetoseg)}</span>` : ""}
-        <img loading="lazy" src="${imgSrc(p.images?.[0,1])}" alt="${escapeHtml(p.nev)}" />
+        <img
+          loading="lazy"
+          src="${imgSrc(previewImage)}"
+          alt="${escapeHtml(p.nev)}"
+        />
       </div>
+
       <div class="card-info">
         ${p.kollekcio ? `<p class="card-coll">${escapeHtml(p.kollekcio)}</p>` : ""}
         <h3 class="card-name">${escapeHtml(p.nev)}</h3>
+
         <div class="card-meta">
-          ${p.szin ? `<span class="chip">${escapeHtml(p.szin)}</span>`:""}
-          ${p.anyag ? `<span class="chip">${escapeHtml(p.anyag)}</span>`:""}
+          ${p.szin ? `<span class="chip">${escapeHtml(p.szin)}</span>` : ""}
+          ${p.anyag ? `<span class="chip">${escapeHtml(p.anyag)}</span>` : ""}
         </div>
+
         ${fmtPrice(p)}
-        <div class="cart-slot ${cart[p.cikkszam]?.qty?'has':''}" data-cikk="${escapeHtml(p.cikkszam)}">${cartControlInner(p.cikkszam)}</div>
+
+        <div class="cart-slot ${cart[p.cikkszam]?.qty?'has':''}" data-cikk="${escapeHtml(p.cikkszam)}">
+          ${cartControlInner(p.cikkszam)}
+        </div>
       </div>`;
-    card.querySelector("img").addEventListener("error", e=>{ e.target.onerror=null; e.target.src=PLACEHOLDER; });
-    card.addEventListener("click", e=>{ if(e.target.closest(".cart-slot")) return; openModal(p); });
-    card.addEventListener("keydown", e=>{ if((e.key==="Enter"||e.key===" ") && e.target===card){ e.preventDefault(); openModal(p); } });
+
+    card.querySelector("img").addEventListener("error", e=>{
+      e.target.onerror = null;
+      e.target.src = PLACEHOLDER;
+    });
+
+    card.addEventListener("click", e=>{
+      if(e.target.closest(".cart-slot")) return;
+      openModal(p);
+    });
+
+    card.addEventListener("keydown", e=>{
+      if((e.key==="Enter" || e.key===" ") && e.target===card){
+        e.preventDefault();
+        openModal(p);
+      }
+    });
+
     grid.appendChild(card);
   });
 }
