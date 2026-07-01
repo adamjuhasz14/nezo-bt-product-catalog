@@ -127,9 +127,10 @@ function render(list){
   }
   grid.innerHTML = "";
   list.forEach(p=>{
-    const card = document.createElement("button");
+    const card = document.createElement("div");
     card.className = "card";
-    card.type = "button";
+    card.setAttribute("role", "button");
+    card.tabIndex = 0;
     card.setAttribute("aria-label", p.nev + " megtekintése");
     const order = (p.elerhetoseg||"").toLowerCase().includes("rendel");
     card.innerHTML = `
@@ -146,9 +147,12 @@ function render(list){
           ${p.anyag ? `<span class="chip">${escapeHtml(p.anyag)}</span>`:""}
         </div>
         ${fmtPrice(p)}
+        <button class="add-btn card-add" type="button">＋ Kosárba</button>
       </div>`;
     card.querySelector("img").addEventListener("error", e=>{ e.target.onerror=null; e.target.src=PLACEHOLDER; });
-    card.addEventListener("click", ()=>openModal(p));
+    card.addEventListener("click", e=>{ if(e.target.closest(".card-add")) return; openModal(p); });
+    card.addEventListener("keydown", e=>{ if((e.key==="Enter"||e.key===" ") && e.target===card){ e.preventDefault(); openModal(p); } });
+    card.querySelector(".card-add").addEventListener("click", e=>{ e.stopPropagation(); addToCart(p,1,e.currentTarget); });
     grid.appendChild(card);
   });
 }
@@ -190,6 +194,14 @@ function openModal(p){
       <h2 id="modal-title">${escapeHtml(p.nev)}</h2>
       ${order?'<p class="modal-tag">Rendelésre elérhető</p>':'<p class="modal-tag">Raktárról szállítható</p>'}
       ${price}
+      <div class="modal-cart">
+        <div class="qty" aria-label="Mennyiség">
+          <button class="qty-btn" type="button" data-step="-1" aria-label="Kevesebb">−</button>
+          <input id="modal-qty" class="qty-input" type="number" min="1" value="1" aria-label="Darabszám" />
+          <button class="qty-btn" type="button" data-step="1" aria-label="Több">＋</button>
+        </div>
+        <button id="modal-add" class="add-btn add-btn-lg" type="button">＋ Kosárba</button>
+      </div>
       <dl class="specs">${rows}</dl>
       ${p.leiras?`<p class="modal-desc">${escapeHtml(p.leiras)}</p>`:""}
       <div class="modal-cta">
@@ -211,6 +223,15 @@ function openModal(p){
     });
   });
 
+  const qtyInput = $("#modal-qty");
+  modalBody.querySelectorAll(".qty-btn").forEach(b=>b.addEventListener("click",()=>{
+    let v=(parseInt(qtyInput.value,10)||1)+parseInt(b.dataset.step,10); if(v<1)v=1; qtyInput.value=v;
+  }));
+  $("#modal-add").addEventListener("click", e=>{
+    let v=parseInt(qtyInput.value,10)||1; if(v<1)v=1;
+    addToCart(p, v, e.currentTarget);
+  });
+
   modal.hidden = false;
   document.body.style.overflow = "hidden";
   $(".modal-close").focus();
@@ -224,8 +245,71 @@ function closeModal(){
 modal.querySelectorAll("[data-close]").forEach(el=>el.addEventListener("click", closeModal));
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !modal.hidden) closeModal(); });
 
+/* ---------- Kosár (ajánlatkérő lista) ---------- */
+let cart = {};   // { cikkszam: {cikkszam, nev, qty} }
+try{ const s=localStorage.getItem("nezo_cart"); if(s) cart=JSON.parse(s)||{}; }catch(e){ cart={}; }
+function saveCart(){ try{ localStorage.setItem("nezo_cart", JSON.stringify(cart)); }catch(e){} }
+function cartCount(){ return Object.values(cart).reduce((s,it)=>s+it.qty,0); }
+
+function addToCart(p, qty, btn){
+  qty = Math.max(1, qty|0);
+  const key = p.cikkszam;
+  if(cart[key]) cart[key].qty += qty; else cart[key] = { cikkszam:p.cikkszam, nev:p.nev, qty };
+  saveCart(); refreshCart();
+  if(btn){ const t=btn.textContent; btn.textContent="Hozzáadva ✓"; btn.classList.add("added"); setTimeout(()=>{ btn.textContent=t; btn.classList.remove("added"); }, 1100); }
+}
+function setQty(cikk, qty){
+  if(!cart[cikk]) return;
+  qty = qty|0;
+  if(qty<1){ delete cart[cikk]; } else { cart[cikk].qty=qty; }
+  saveCart(); refreshCart(); renderCartItems();
+}
+function removeFromCart(cikk){ delete cart[cikk]; saveCart(); refreshCart(); renderCartItems(); }
+
+function refreshCart(){
+  const n = cartCount();
+  $("#cart-count").textContent = n;
+  $("#cart-fab").hidden = n===0;
+}
+function renderCartItems(){
+  const box = $("#cart-items");
+  const items = Object.values(cart);
+  if(!items.length){ box.innerHTML='<p class="cart-empty">A kosár még üres. Böngéssz a termékek között, és tedd a kosárba, amiből ajánlatot kérnél.</p>'; return; }
+  box.innerHTML = items.map(it=>`
+    <div class="cart-item" data-cikk="${escapeHtml(it.cikkszam)}">
+      <span class="cart-item-name">${escapeHtml(it.cikkszam)}</span>
+      <div class="qty small">
+        <button class="qty-btn" type="button" data-act="dec" aria-label="Kevesebb">−</button>
+        <span class="qty-val">${it.qty}</span>
+        <button class="qty-btn" type="button" data-act="inc" aria-label="Több">＋</button>
+      </div>
+      <button class="cart-remove" type="button" data-act="rm" aria-label="Törlés">×</button>
+    </div>`).join("");
+  box.querySelectorAll(".cart-item").forEach(row=>{
+    const cikk=row.dataset.cikk;
+    row.querySelector('[data-act="dec"]').addEventListener("click",()=>setQty(cikk,(cart[cikk]?.qty||1)-1));
+    row.querySelector('[data-act="inc"]').addEventListener("click",()=>setQty(cikk,(cart[cikk]?.qty||0)+1));
+    row.querySelector('[data-act="rm"]').addEventListener("click",()=>removeFromCart(cikk));
+  });
+}
+function openCart(){ renderCartItems(); $("#cart").hidden=false; document.body.style.overflow="hidden"; }
+function closeCart(){ $("#cart").hidden=true; document.body.style.overflow=""; }
+function sendOrder(){
+  const items = Object.values(cart);
+  if(!items.length){ alert("A kosár üres."); return; }
+  const lines = items.map(it=>`- ${it.cikkszam}: ${it.qty} db`).join("\n");
+  const total = items.reduce((s,it)=>s+it.qty,0);
+  const subject = "Ajánlatkérés / rendelés – Nezo Bt.";
+  const body = `Jó napot!\n\nAz alábbi bordűrökre szeretnék ajánlatot / rendelést kérni:\n\n${lines}\n\nÖsszesen: ${total} db\n\nKérem, jelezzenek vissza az árral és az elérhetőséggel. Köszönöm!`;
+  window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 /* ---------- Események ---------- */
 function bind(){
+  $("#cart-fab").addEventListener("click", openCart);
+  $("#cart").querySelectorAll("[data-cart-close]").forEach(el=>el.addEventListener("click", closeCart));
+  $("#cart-send").addEventListener("click", sendOrder);
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !$("#cart").hidden) closeCart(); });
   $("#filter-toggle").addEventListener("click", ()=>{
     const open = $("#filter-panel").hidden;
     $("#filter-panel").hidden = !open;
@@ -255,6 +339,7 @@ async function init(){
   if(!Array.isArray(ALL)) ALL = [];
   fillSelect("#f-szin","szin");
   bind();
+  refreshCart();
   apply();
   checkImages();
 }
