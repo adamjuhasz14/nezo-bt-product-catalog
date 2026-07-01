@@ -138,7 +138,7 @@ function render(list){
       <div class="card-figure">
         <span class="card-tag">${escapeHtml(p.cikkszam)}</span>
         ${p.elerhetoseg ? `<span class="card-stock ${order?"order":""}">${escapeHtml(p.elerhetoseg)}</span>` : ""}
-        <img loading="lazy" src="${imgSrc(p.images?.[0])}" alt="${escapeHtml(p.nev)}" />
+        <img loading="lazy" src="${imgSrc(p.images?.[0,1])}" alt="${escapeHtml(p.nev)}" />
       </div>
       <div class="card-info">
         ${p.kollekcio ? `<p class="card-coll">${escapeHtml(p.kollekcio)}</p>` : ""}
