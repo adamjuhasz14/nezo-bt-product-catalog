@@ -89,8 +89,8 @@
     <div class="panel">
       <h2 id="form-title">Új termék</h2>
       <div class="row">
-        <div><label>Cikkszám *</label><input id="cikkszam" placeholder="pl. NZ-1042" /></div>
-        <div><label>Megnevezés *</label><input id="nev" placeholder="pl. Lenvászon csíkos" /></div>
+        <div><label>Cikkszám *</label><input id="cikkszam" placeholder="pl. 307-20" /></div>
+        <div><label>Megnevezés * <span style="font-weight:400">(= cikkszám, automatikus)</span></label><input id="nev" placeholder="automatikusan a cikkszám" /></div>
       </div>
       <div class="row">
         <div><label>Kollekció</label><input id="kollekcio" placeholder="pl. Naturel" list="dl-kollekcio" /></div>
@@ -117,7 +117,7 @@
       <div class="field">
         <label>Kép(ek)</label>
         <input type="file" id="images" accept="image/*" multiple />
-        <p class="hint">Több kép is választható (akár több körben is). Lent a <strong>◀ ▶</strong> gombokkal állíthatod a sorrendet – az <strong>első kép lesz a borító</strong>. A képeket a segéd automatikusan kicsinyíti (max. 1600 px, JPG).</p>
+        <p class="hint">Több kép is választható. A <strong>◀ ▶</strong> gombokkal állíthatod a sorrendet – az <strong>első kép lesz a borító</strong>. A segéd a borítót <code>cikkszám.jpg</code>, a további képeket <code>cikkszám-stock.png</code> néven menti. Automatikus kicsinyítés (max. 1600 px).</p>
         <div class="imgwork" id="work-images"></div>
       </div>
       <div class="warn" id="warn"></div>
@@ -174,6 +174,22 @@ function slug(s){
   return (s||"").toString().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
     .toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
 }
+function fileBase(cikkszam){
+  return (cikkszam||"").trim().replace(/[^A-Za-z0-9._-]+/g,"-").replace(/^-+|-+$/g,"");
+}
+// A Nezo bordűr-kódrendszer: első számjegy = szélesség, kötőjel után = szín
+const SZIN_MAP={ "13":"Kék", "20":"Bézs", "21":"Szürke", "18":"Arany", "06":"Sötét barna" };
+const SZEL_MAP={ "3":"3 cm", "5":"5 cm", "7":"7 cm" };
+function autofillFromCikkszam(){
+  const cs=$("#cikkszam").value.trim();
+  $("#nev").value=cs;                       // a név mindig = cikkszám
+  const m=cs.match(/^(\d)\d{2}-(\d{2})$/);
+  if(!m) return;
+  const width=SZEL_MAP[m[1]], color=SZIN_MAP[m[2]];
+  if(!$("#kollekcio").value) $("#kollekcio").value="Bordűr";
+  if(color && !$("#szin").value) $("#szin").value=color;
+  if(width && !$("#meret").value) $("#meret").value=width+" széles";
+}
 function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 function loadImage(file){
   return new Promise((res,rej)=>{
@@ -182,13 +198,13 @@ function loadImage(file){
     img.onerror=rej; img.src=url;
   });
 }
-async function compress(file, maxDim=1600, quality=0.82){
+async function compress(file, maxDim=1600, quality=0.82, mime="image/jpeg"){
   const img=await loadImage(file);
   let w=img.naturalWidth, h=img.naturalHeight;
   if(Math.max(w,h)>maxDim){ const r=maxDim/Math.max(w,h); w=Math.round(w*r); h=Math.round(h*r); }
   const c=document.createElement("canvas"); c.width=w; c.height=h;
   c.getContext("2d").drawImage(img,0,0,w,h);
-  return await new Promise(r=>c.toBlob(r,"image/jpeg",quality));
+  return await new Promise(r=>c.toBlob(r,mime,quality));
 }
 
 /* ---------- kép munkaterület (sorrend) ---------- */
@@ -232,14 +248,17 @@ async function handleAdd(){
 
   $("#add").disabled=true; const lbl=$("#add").textContent; $("#add").textContent="Feldolgozás…";
   try{
-    const base=slug(cikkszam)||("termek-"+Date.now());
+    const base=fileBase(cikkszam)||("termek-"+Date.now());
     const used=new Set(workImages.filter(w=>w.kind==='kept').map(w=>w.name));
-    let k=1; const images=[];
+    const images=[];
     for(const w of workImages){
       if(w.kind==='kept'){ images.push(w.name); continue; }
-      while(used.has(`${base}-${k}.jpg`)) k++;
-      const fname=`${base}-${k}.jpg`; used.add(fname); k++;
-      const blob=await compress(w.file);
+      let fname;
+      if(!used.has(`${base}.jpg`)){ fname=`${base}.jpg`; }
+      else { let s=1, cand=`${base}-stock.png`; while(used.has(cand)){ s++; cand=`${base}-stock${s}.png`; } fname=cand; }
+      used.add(fname);
+      const mime = fname.endsWith(".png") ? "image/png" : "image/jpeg";
+      const blob=await compress(w.file, 1600, 0.82, mime);
       if(BLOBS.has(fname)) URL.revokeObjectURL(BLOBS.get(fname));
       BLOBS.set(fname, URL.createObjectURL(blob));
       images.push(fname);
@@ -374,6 +393,7 @@ $("#images").addEventListener("change", e=>{
   });
   e.target.value=""; renderWork();
 });
+$("#cikkszam").addEventListener("input", autofillFromCikkszam);
 $("#add").addEventListener("click", handleAdd);
 $("#cancel-edit").addEventListener("click", resetForm);
 $("#export").addEventListener("click", exportJson);
