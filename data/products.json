@@ -591,7 +591,9 @@
     "elerhetoseg": "Raktáron",
     "leiras": "",
     "images": [
+      "506-06-stock.png",
       "506-06.jpg"
+      
     ]
   },
   {
@@ -727,7 +729,8 @@
     "elerhetoseg": "Raktáron",
     "leiras": "",
     "images": [
-      "508-13.jpg"
+      "508-13.jpg",
+      "508-13-stock.png"
     ]
   },
   {
