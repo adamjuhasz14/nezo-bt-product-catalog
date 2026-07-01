@@ -80,6 +80,29 @@
     </div>
   </footer>
 
+  <!-- Lebegő kosárgomb -->
+  <button id="cart-fab" class="cart-fab" type="button" aria-label="Ajánlatkérő kosár megnyitása" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h2.2l2.3 12.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 7H6"/></svg>
+    <span>Kosár</span>
+    <span id="cart-count" class="cart-count">0</span>
+  </button>
+
+  <!-- Ajánlatkérő kosár -->
+  <div id="cart" class="cart" hidden>
+    <div class="cart-backdrop" data-cart-close></div>
+    <aside class="cart-panel" role="dialog" aria-modal="true" aria-label="Ajánlatkérő kosár">
+      <div class="cart-head">
+        <h2>Ajánlatkérő kosár</h2>
+        <button class="cart-x" type="button" data-cart-close aria-label="Bezárás">×</button>
+      </div>
+      <div id="cart-items" class="cart-items"></div>
+      <div class="cart-foot">
+        <button id="cart-send" class="cart-send" type="button">Rendelés elküldése e-mailben</button>
+        <p class="cart-note">A gomb megnyitja a leveleződet, előre kitöltve a kosár tartalmával (cikkszám és darabszám). Elküldés előtt átnézheted és kiegészítheted.</p>
+      </div>
+    </aside>
+  </div>
+
   <!-- Termék modal -->
   <div id="modal" class="modal" hidden>
     <div class="modal-backdrop" data-close></div>
