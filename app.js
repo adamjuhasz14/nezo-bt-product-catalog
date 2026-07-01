@@ -32,6 +32,7 @@ const FALLBACK_PRODUCTS = [
 ];
 
 let ALL = [];
+let PRODUCT_BY_CIKK = {};
 const imgAvail = {};        // termék id -> betölt-e a képe (van-e valódi kép)
 let imagesChecked = false;
 const state = { search:"", szin:"", sort:"default" };
@@ -147,12 +148,11 @@ function render(list){
           ${p.anyag ? `<span class="chip">${escapeHtml(p.anyag)}</span>`:""}
         </div>
         ${fmtPrice(p)}
-        <button class="add-btn card-add" type="button">＋ Kosárba</button>
+        <div class="cart-slot ${cart[p.cikkszam]?.qty?'has':''}" data-cikk="${escapeHtml(p.cikkszam)}">${cartControlInner(p.cikkszam)}</div>
       </div>`;
     card.querySelector("img").addEventListener("error", e=>{ e.target.onerror=null; e.target.src=PLACEHOLDER; });
-    card.addEventListener("click", e=>{ if(e.target.closest(".card-add")) return; openModal(p); });
+    card.addEventListener("click", e=>{ if(e.target.closest(".cart-slot")) return; openModal(p); });
     card.addEventListener("keydown", e=>{ if((e.key==="Enter"||e.key===" ") && e.target===card){ e.preventDefault(); openModal(p); } });
-    card.querySelector(".card-add").addEventListener("click", e=>{ e.stopPropagation(); addToCart(p,1,e.currentTarget); });
     grid.appendChild(card);
   });
 }
@@ -194,14 +194,7 @@ function openModal(p){
       <h2 id="modal-title">${escapeHtml(p.nev)}</h2>
       ${order?'<p class="modal-tag">Rendelésre elérhető</p>':'<p class="modal-tag">Raktárról szállítható</p>'}
       ${price}
-      <div class="modal-cart">
-        <div class="qty" aria-label="Mennyiség">
-          <button class="qty-btn" type="button" data-step="-1" aria-label="Kevesebb">−</button>
-          <input id="modal-qty" class="qty-input" type="number" min="1" value="1" aria-label="Darabszám" />
-          <button class="qty-btn" type="button" data-step="1" aria-label="Több">＋</button>
-        </div>
-        <button id="modal-add" class="add-btn add-btn-lg" type="button">＋ Kosárba</button>
-      </div>
+      <div class="cart-slot modal-slot ${cart[p.cikkszam]?.qty?'has':''}" data-cikk="${escapeHtml(p.cikkszam)}">${cartControlInner(p.cikkszam)}</div>
       <dl class="specs">${rows}</dl>
       ${p.leiras?`<p class="modal-desc">${escapeHtml(p.leiras)}</p>`:""}
       <div class="modal-cta">
@@ -223,15 +216,6 @@ function openModal(p){
     });
   });
 
-  const qtyInput = $("#modal-qty");
-  modalBody.querySelectorAll(".qty-btn").forEach(b=>b.addEventListener("click",()=>{
-    let v=(parseInt(qtyInput.value,10)||1)+parseInt(b.dataset.step,10); if(v<1)v=1; qtyInput.value=v;
-  }));
-  $("#modal-add").addEventListener("click", e=>{
-    let v=parseInt(qtyInput.value,10)||1; if(v<1)v=1;
-    addToCart(p, v, e.currentTarget);
-  });
-
   modal.hidden = false;
   document.body.style.overflow = "hidden";
   $(".modal-close").focus();
@@ -251,26 +235,62 @@ try{ const s=localStorage.getItem("nezo_cart"); if(s) cart=JSON.parse(s)||{}; }c
 function saveCart(){ try{ localStorage.setItem("nezo_cart", JSON.stringify(cart)); }catch(e){} }
 function cartCount(){ return Object.values(cart).reduce((s,it)=>s+it.qty,0); }
 
-function addToCart(p, qty, btn){
+// egy termék kosár-vezérlőjének belseje: „Kosárba” gomb, vagy − db + léptető
+function cartControlInner(cikk){
+  const qty = cart[cikk]?.qty || 0;
+  if(qty>0){
+    return `<button class="cc-btn js-cart-dec" type="button" aria-label="Kevesebb">−</button>`
+      + `<span class="cc-qty">${qty} db</span>`
+      + `<button class="cc-btn js-cart-inc" type="button" aria-label="Több">＋</button>`;
+  }
+  return `<button class="cc-add js-cart-add" type="button">Kosárba</button>`;
+}
+
+// minden látható vezérlő (kártya, modal, fab, panel) frissítése a kosár szerint
+function syncCartControls(){
+  const n = cartCount();
+  $("#cart-count").textContent = n;
+  $("#cart-fab").hidden = n===0;
+  document.querySelectorAll(".cart-slot").forEach(slot=>{
+    const q = cart[slot.dataset.cikk]?.qty || 0;
+    slot.classList.toggle("has", q>0);
+    slot.innerHTML = cartControlInner(slot.dataset.cikk);
+  });
+  if(!$("#cart").hidden) renderCartItems();
+}
+const refreshCart = syncCartControls;
+
+function addToCart(p, qty){
   qty = Math.max(1, qty|0);
   const key = p.cikkszam;
-  if(cart[key]) cart[key].qty += qty; else cart[key] = { cikkszam:p.cikkszam, nev:p.nev, qty };
-  saveCart(); refreshCart();
-  if(btn){ const t=btn.textContent; btn.textContent="Hozzáadva ✓"; btn.classList.add("added"); setTimeout(()=>{ btn.textContent=t; btn.classList.remove("added"); }, 1100); }
+  if(cart[key]) cart[key].qty += qty; else cart[key] = { cikkszam:p.cikkszam, nev:p.nev||p.cikkszam, qty };
+  saveCart(); syncCartControls();
 }
 function setQty(cikk, qty){
   if(!cart[cikk]) return;
   qty = qty|0;
   if(qty<1){ delete cart[cikk]; } else { cart[cikk].qty=qty; }
-  saveCart(); refreshCart(); renderCartItems();
+  saveCart(); syncCartControls();
 }
-function removeFromCart(cikk){ delete cart[cikk]; saveCart(); refreshCart(); renderCartItems(); }
+function removeFromCart(cikk){ delete cart[cikk]; saveCart(); syncCartControls(); }
 
-function refreshCart(){
-  const n = cartCount();
-  $("#cart-count").textContent = n;
-  $("#cart-fab").hidden = n===0;
-}
+// egy helyen kezeljük a kártya/modal kosár-kattintásokat (esemény-delegálás)
+document.addEventListener("click", e=>{
+  const hit = e.target.closest(".js-cart-add, .js-cart-inc, .js-cart-dec");
+  if(!hit) return;
+  const slot = e.target.closest(".cart-slot");
+  if(!slot) return;
+  e.stopPropagation();
+  const cikk = slot.dataset.cikk;
+  if(hit.classList.contains("js-cart-add")){
+    addToCart(PRODUCT_BY_CIKK[cikk] || {cikkszam:cikk, nev:cikk}, 1);
+  } else if(hit.classList.contains("js-cart-inc")){
+    setQty(cikk, (cart[cikk]?.qty||0)+1);
+  } else {
+    setQty(cikk, (cart[cikk]?.qty||1)-1);
+  }
+});
+
 function renderCartItems(){
   const box = $("#cart-items");
   const items = Object.values(cart);
@@ -337,6 +357,7 @@ async function init(){
     ALL = FALLBACK_PRODUCTS;
   }
   if(!Array.isArray(ALL)) ALL = [];
+  PRODUCT_BY_CIKK = Object.fromEntries(ALL.map(p=>[p.cikkszam, p]));
   fillSelect("#f-szin","szin");
   bind();
   refreshCart();
