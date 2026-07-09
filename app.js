@@ -85,8 +85,7 @@ function apply(){
   });
   const priceVal = p => (p.ar===""||p.ar==null) ? Infinity : Number(p.ar);
   const cmp = (a,b)=>{
-    if(state.sort==="price-asc") return priceVal(a)-priceVal(b);
-    if(state.sort==="price-desc") return priceVal(b)-priceVal(a);
+    if(state.sort==="color") return (a.szin||"").localeCompare(b.szin||"","hu") || a.nev.localeCompare(b.nev,"hu");
     if(state.sort==="name-asc") return a.nev.localeCompare(b.nev,"hu");
     return 0;
   };
@@ -126,70 +125,32 @@ function render(list){
     grid.innerHTML = '<p class="state">Nincs a szűrésnek megfelelő termék. Próbálj meg lazítani a szűrőkön.</p>';
     return;
   }
-
   grid.innerHTML = "";
-
   list.forEach(p=>{
-
     const card = document.createElement("div");
     card.className = "card";
     card.setAttribute("role", "button");
     card.tabIndex = 0;
     card.setAttribute("aria-label", p.nev + " megtekintése");
-
     const order = (p.elerhetoseg||"").toLowerCase().includes("rendel");
-
-    // Ha van legalább 2 kép, akkor a második legyen az alapértelmezett.
-    // Ha csak 1 van, akkor az első.
-    const previewImage =
-      p.images?.length > 1
-        ? p.images[1]
-        : p.images?.[0];
-
     card.innerHTML = `
       <div class="card-figure">
         <span class="card-tag">${escapeHtml(p.cikkszam)}</span>
         ${p.elerhetoseg ? `<span class="card-stock ${order?"order":""}">${escapeHtml(p.elerhetoseg)}</span>` : ""}
-        <img
-          loading="lazy"
-          src="${imgSrc(previewImage)}"
-          alt="${escapeHtml(p.nev)}"
-        />
+        <img loading="lazy" src="${imgSrc(p.images?.[0])}" alt="${escapeHtml(p.nev)}" />
       </div>
-
       <div class="card-info">
         ${p.kollekcio ? `<p class="card-coll">${escapeHtml(p.kollekcio)}</p>` : ""}
         <h3 class="card-name">${escapeHtml(p.nev)}</h3>
-
         <div class="card-meta">
-          ${p.szin ? `<span class="chip">${escapeHtml(p.szin)}</span>` : ""}
-          ${p.anyag ? `<span class="chip">${escapeHtml(p.anyag)}</span>` : ""}
+          ${p.szin ? `<span class="chip">${escapeHtml(p.szin)}</span>`:""}
+          ${p.anyag ? `<span class="chip">${escapeHtml(p.anyag)}</span>`:""}
         </div>
-
-        ${fmtPrice(p)}
-
-        <div class="cart-slot ${cart[p.cikkszam]?.qty?'has':''}" data-cikk="${escapeHtml(p.cikkszam)}">
-          ${cartControlInner(p.cikkszam)}
-        </div>
+        <div class="cart-slot ${cart[p.cikkszam]?.qty?'has':''}" data-cikk="${escapeHtml(p.cikkszam)}">${cartControlInner(p.cikkszam)}</div>
       </div>`;
-
-    card.querySelector("img").addEventListener("error", e=>{
-      e.target.onerror = null;
-      e.target.src = PLACEHOLDER;
-    });
-
-    card.addEventListener("click", e=>{
-      if(e.target.closest(".cart-slot")) return;
-      openModal(p);
-    });
-
-    card.addEventListener("keydown", e=>{
-      if((e.key==="Enter" || e.key===" ") && e.target===card){
-        e.preventDefault();
-        openModal(p);
-      }
-    });
-
+    card.querySelector("img").addEventListener("error", e=>{ e.target.onerror=null; e.target.src=PLACEHOLDER; });
+    card.addEventListener("click", e=>{ if(e.target.closest(".cart-slot")) return; openModal(p); });
+    card.addEventListener("keydown", e=>{ if((e.key==="Enter"||e.key===" ") && e.target===card){ e.preventDefault(); openModal(p); } });
     grid.appendChild(card);
   });
 }
@@ -243,10 +204,24 @@ function openModal(p){
     </div>`;
 
   const mainImg = $("#modal-main");
-  mainImg.addEventListener("error", e=>{ e.target.onerror=null; e.target.src=PLACEHOLDER; });
+  let mainIdx = 0;
+  mainImg.addEventListener("error", ()=>{
+    let next = mainIdx+1;
+    while(next < imgs.length && !imgs[next]) next++;
+    if(next < imgs.length){ mainIdx = next; mainImg.src = imgSrc(imgs[next]); }
+    else { mainImg.onerror = null; mainImg.src = PLACEHOLDER; }
+  });
+  function hideThumb(btn){
+    btn.style.display = "none";
+    const vis = [...modalBody.querySelectorAll(".thumbs button")].filter(x=>x.style.display!=="none");
+    if(vis.length < 2){ const row = modalBody.querySelector(".thumbs"); if(row) row.style.display = "none"; }
+  }
   modalBody.querySelectorAll(".thumbs button").forEach(b=>{
+    const timg = b.querySelector("img");
+    timg.addEventListener("error", ()=>hideThumb(b));
     b.addEventListener("click", ()=>{
       const i = +b.dataset.i;
+      mainIdx = i;
       mainImg.src = imgSrc(imgs[i]);
       modalBody.querySelectorAll(".thumbs button").forEach(x=>x.classList.remove("active"));
       b.classList.add("active");
@@ -280,7 +255,7 @@ function cartControlInner(cikk){
       + `<span class="cc-qty">${qty} db</span>`
       + `<button class="cc-btn js-cart-inc" type="button" aria-label="Több">＋</button>`;
   }
-  return `<button class="cc-add js-cart-add" type="button">Kosárba</button>`;
+  return `<button class="cc-add js-cart-add" type="button">Listához</button>`;
 }
 
 // minden látható vezérlő (kártya, modal, fab, panel) frissítése a kosár szerint
@@ -331,7 +306,7 @@ document.addEventListener("click", e=>{
 function renderCartItems(){
   const box = $("#cart-items");
   const items = Object.values(cart);
-  if(!items.length){ box.innerHTML='<p class="cart-empty">A kosár még üres. Böngéssz a termékek között, és tedd a kosárba, amiből ajánlatot kérnél.</p>'; return; }
+  if(!items.length){ box.innerHTML='<p class="cart-empty">Az ajánlatkérő lista még üres. Böngéssz a bordűrök között, és tedd a listához, amiből ajánlatot kérnél.</p>'; return; }
   box.innerHTML = items.map(it=>`
     <div class="cart-item" data-cikk="${escapeHtml(it.cikkszam)}">
       <span class="cart-item-name">${escapeHtml(it.cikkszam)}</span>
@@ -353,11 +328,11 @@ function openCart(){ renderCartItems(); $("#cart").hidden=false; document.body.s
 function closeCart(){ $("#cart").hidden=true; document.body.style.overflow=""; }
 function sendOrder(){
   const items = Object.values(cart);
-  if(!items.length){ alert("A kosár üres."); return; }
+  if(!items.length){ alert("Az ajánlatkérő lista üres."); return; }
   const lines = items.map(it=>`- ${it.cikkszam}: ${it.qty} db`).join("\n");
   const total = items.reduce((s,it)=>s+it.qty,0);
-  const subject = "Ajánlatkérés / rendelés – Nezo Bt.";
-  const body = `Jó napot!\n\nAz alábbi bordűrökre szeretnék ajánlatot / rendelést kérni:\n\n${lines}\n\nÖsszesen: ${total} db\n\nKérem, jelezzenek vissza az árral és az elérhetőséggel. Köszönöm!`;
+  const subject = "Ajánlatkérés – Nezo Bt.";
+  const body = `Jó napot!\n\nAz alábbi bordűrökre szeretnék ajánlatot kérni:\n\n${lines}\n\nÖsszesen: ${total} db\n\nKérem, jelezzenek vissza az árral és az elérhetőséggel. Köszönöm!`;
   window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
