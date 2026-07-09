@@ -117,7 +117,7 @@
       <div class="field">
         <label>Kép(ek)</label>
         <input type="file" id="images" accept="image/*" multiple />
-        <p class="hint">Több kép is választható. A <strong>◀ ▶</strong> gombokkal állíthatod a sorrendet – az <strong>első kép lesz a borító</strong>. A segéd a borítót <code>cikkszám.jpg</code>, a további képeket <code>cikkszám-stock.png</code> néven menti. Automatikus kicsinyítés (max. 1600 px).</p>
+        <p class="hint">Több kép is választható. A <strong>◀ ▶</strong> gombokkal állíthatod a sorrendet – az <strong>első kép lesz a borító</strong>. A segéd a borítót <code>cikkszám.jpg</code>, a további képeket <code>cikkszám-stock.png</code> néven menti, és a <code>cikkszám-stock.png</code> hivatkozás mindig bekerül a JSON-ba – így elég később csak feltöltened azt a képet. Automatikus kicsinyítés (max. 1600 px).</p>
         <div class="imgwork" id="work-images"></div>
       </div>
       <div class="warn" id="warn"></div>
@@ -179,7 +179,7 @@ function fileBase(cikkszam){
 }
 // A Nezo bordűr-kódrendszer: első számjegy = szélesség, kötőjel után = szín
 const SZIN_MAP={ "13":"Kék", "20":"Bézs", "21":"Szürke", "18":"Arany", "06":"Sötét barna" };
-const SZEL_MAP={ "3":"3 cm", "5":"5 cm", "7":"7 cm" };
+const SZEL_MAP={ "3":"3,7 cm", "5":"5,3 cm", "7":"7,7 cm" };
 function autofillFromCikkszam(){
   const cs=$("#cikkszam").value.trim();
   $("#nev").value=cs;                       // a név mindig = cikkszám
@@ -263,6 +263,10 @@ async function handleAdd(){
       BLOBS.set(fname, URL.createObjectURL(blob));
       images.push(fname);
     }
+    // mindig legyen ott a borító és a stock-kép hivatkozása (elég a fájlt feltölteni)
+    const coverRef=`${base}.jpg`, stockRef=`${base}-stock.png`;
+    if(!images.includes(coverRef)) images.unshift(coverRef);
+    if(!images.includes(stockRef)) images.push(stockRef);
     const arRaw=$("#ar").value.trim();
     const product={
       id: base, cikkszam, nev,
