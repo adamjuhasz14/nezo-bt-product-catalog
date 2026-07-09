@@ -28,9 +28,7 @@
 
   <section class="intro">
     <div class="wrap">
-      <p class="eyebrow">Termékkatalógus</p>
-      <h1>Tapéták viszonteladóknak és kivitelezőknek</h1>
-      <p class="intro-lead">Böngéssz a kínálatban, szűrj szín szerint, és rendezz ár vagy név szerint. Rendeléshez és aktuális nagykereskedelmi árakhoz vedd fel velünk a kapcsolatot.</p>
+      <h1>Bordűrök viszonteladóknak</h1>
     </div>
   </section>
 
@@ -51,9 +49,8 @@
         <select id="f-szin" aria-label="Szín szűrő"><option value="">Minden szín</option></select>
         <select id="sort" aria-label="Rendezés">
           <option value="default">Rendezés: alapértelmezett</option>
-          <option value="price-asc">Ár szerint növekvő</option>
-          <option value="price-desc">Ár szerint csökkenő</option>
-          <option value="name-asc">Név szerint (A–Z)</option>
+          <option value="color">Szín szerint</option>
+          <option value="name-asc">Cikkszám szerint (A–Z)</option>
         </select>
       </div>
       <button id="reset" class="link-btn" type="button" hidden>Szűrők törlése</button>
@@ -80,25 +77,25 @@
     </div>
   </footer>
 
-  <!-- Lebegő kosárgomb -->
-  <button id="cart-fab" class="cart-fab" type="button" aria-label="Ajánlatkérő kosár megnyitása" hidden>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h2.2l2.3 12.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 7H6"/></svg>
-    <span>Kosár</span>
+  <!-- Lebegő ajánlatkérő gomb -->
+  <button id="cart-fab" class="cart-fab" type="button" aria-label="Ajánlatkérő lista megnyitása" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h13l-1.2 8.5a2 2 0 0 1-2 1.7H8.2a2 2 0 0 1-2-1.7L4.6 3H2"/><path d="M9 20.5h.01M15 20.5h.01"/></svg>
+    <span>Ajánlatkérő</span>
     <span id="cart-count" class="cart-count">0</span>
   </button>
 
-  <!-- Ajánlatkérő kosár -->
+  <!-- Ajánlatkérő lista -->
   <div id="cart" class="cart" hidden>
     <div class="cart-backdrop" data-cart-close></div>
-    <aside class="cart-panel" role="dialog" aria-modal="true" aria-label="Ajánlatkérő kosár">
+    <aside class="cart-panel" role="dialog" aria-modal="true" aria-label="Ajánlatkérő lista">
       <div class="cart-head">
-        <h2>Ajánlatkérő kosár</h2>
+        <h2>Ajánlatkérő lista</h2>
         <button class="cart-x" type="button" data-cart-close aria-label="Bezárás">×</button>
       </div>
       <div id="cart-items" class="cart-items"></div>
       <div class="cart-foot">
-        <button id="cart-send" class="cart-send" type="button">Rendelés elküldése e-mailben</button>
-        <p class="cart-note">A gomb megnyitja a leveleződet, előre kitöltve a kosár tartalmával (cikkszám és darabszám). Elküldés előtt átnézheted és kiegészítheted.</p>
+        <button id="cart-send" class="cart-send" type="button">Ajánlatkérés elküldése e-mailben</button>
+        <p class="cart-note">Ez nem rendelés. A gomb megnyitja a leveleződet a kiválasztott bordűrökkel (cikkszám és mennyiség), és e-mailben ajánlatot kérhetsz tőlünk. Küldés előtt átnézheted és kiegészítheted.</p>
       </div>
     </aside>
   </div>
